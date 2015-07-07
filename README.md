@@ -1,79 +1,76 @@
-# influxdb
+#influxdb
 
-#### Table of Contents
+####Table of Contents
 
-1. [Overview](#overview)
-2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with influxdb](#setup)
-    * [What influxdb affects](#what-influxdb-affects)
+1. [Description](#description)
+2. [Setup](#setup)
     * [Setup requirements](#setup-requirements)
     * [Beginning with influxdb](#beginning-with-influxdb)
-4. [Usage - Configuration options and additional functionality](#usage)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-5. [Limitations - OS compatibility, etc.](#limitations)
-6. [Development - Guide for contributing to the module](#development)
+3. [Usage](#usage)
+4. [Reference](#reference)
+5. [Limitations](#limitations)
+6. [Development](#development)
 
-## Overview
+##Description
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+A simple module to configure [influxdb](https://influxdb.com/). Only supports Debian at present, but could work on other OS's with minor additions.
 
-## Module Description
+##Setup
 
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
+###Setup Requirements
 
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
+concat - The [puppetlabs concat](https://forge.puppetlabs.com/puppetlabs/concat) module is used to assemble configuration files.
 
-## Setup
+###Beginning with influxdb
 
-### What influxdb affects
+Doing a simple "include influxdb" will configure influxdb with the default config values as at 0.9.1.
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
+##Usage
 
-### Setup Requirements **OPTIONAL**
+Set configuration parameters in hiera. See manifests/config.pp and manifests/config for the parameters that can be set.
 
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
+e.g:
 
-### Beginning with influxdb
+    influxdb::config::meta::bind_address: "8088"
 
-The very basic steps needed for a user to get the module up and running.
+##Reference
 
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+###Classes
 
-## Usage
+####Public Classes
+* [`influxdb`](#class-influxdb): Installs and configures influxdb
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+####Private Classes
+* [`influxdb::config`]: Builds the influxdb configuration file
+* [`influxdb::install`]: Installs the influxdb package
+* [`influxdb::params`]: Static parameters
+* [`influxdb::config::admin`]: Builds the admin section of the config
+* [`influxdb::config::cluster`]: Builds the cluster section of the config
+* [`influxdb::config::data`]: Builds the data section of the config
+* [`influxdb::config::graphite`]: Builds the graphite section of the config
+* [`influxdb::config::http`]: Builds the http section of the config
+* [`influxdb::config::meta`]: Builds the meta section of the config
+* [`influxdb::config::retention`]: Builds the retention section of the config
+* [`influxdb::config::section`]: Type to build a section of the config file
 
-## Reference
+###Class: `influxdb`
 
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
+####Parameters
 
-## Limitations
+#####`manage_package`
+Whether or not to manage the package. Valid options: true or false. Default: true.
 
-This is where you list OS compatibility, version compatibility, etc.
+#####`manage_service`
+Whether or not to manage the influxdb service and ensure it is running. Default: true.
 
-## Development
+##Limitations
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+Supports Debian wheezy and jessie only.
 
-## Release Notes/Contributors/Etc **Optional**
+##Development
 
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.
+This module is fairly basic at present, but pull requests are welcome.
+
+##Contributors
+
+Alex Forbes, alforbes@gumtree.com
