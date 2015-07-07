@@ -1,0 +1,14 @@
+{
+  "name": "gumtreeuk-influxdb",
+  "version": "0.1.0",
+  "author": "gumtreeuk",
+  "summary": "Configures Influxdb",
+  "license": "Apache 2.0",
+  "source": "https://github.com/gumtreeuk/puppet-influxdb",
+  "project_page": "https://github.com/gumtreeuk/puppet-influxdb",
+  "issues_url": "https://github.com/gumtreeuk/puppet-influxdb/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+
